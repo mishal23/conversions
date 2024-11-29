@@ -1,42 +1,5 @@
 <!DOCTYPE html>
 <html>
-<script type="text/javascript">
-function populateSHA256(email) {
-  var email = document.getElementById('email').value;
-  var emailFirst = email.split("@")[0].replaceAll(".", "").toLowerCase();
-  var emailSecond = email.split("@")[1].toLowerCase();
-  var normalizedEmail = emailFirst + '@' + emailSecond;
-  
-  sha256_hex(normalizedEmail).then((hexValue) => {
-    document.getElementById("sha256-hex").innerHTML = hexValue;
-  }
-
-sha256_base64(normalizedEmail).then((based64Value) => {
-    document.getElementById("sha256-base64").innerHTML = based64Value;
-  }
-  
-  return false;
-
-}
-
-async function sha256_hex(message) {
-  const msgUint8 = new TextEncoder().encode(message);
-  const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-  return hashHex;
-}
-
-async function sha256_base64(message) {
-  const msgUint8 = new TextEncoder().encode(message);
-  const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgUint8);
-  const base64Hash = btoa(String.fromCharCode(...new Uint8Array(hashBuffer)));
-  return base64Hash;
-}
-
-</script>
 
 <body>
 
@@ -59,7 +22,38 @@ async function sha256_base64(message) {
 <script>
 const form = document.getElementById("form");
 form.addEventListener("submit", populateSHA256);
+
+function populateSHA256(event) {
+  event.preventDefault();
+  var email = document.getElementById('email').value;
+  var emailFirst = email.split("@")[0].replaceAll(".", "").toLowerCase();
+  var emailSecond = email.split("@")[1].toLowerCase();
+  var normalizedEmail = emailFirst + '@' + emailSecond;
+  
+  sha256_hex(normalizedEmail).then((hexValue) => {
+    document.getElementById("sha256-hex").innerHTML = hexValue;
+  }
+
+sha256_base64(normalizedEmail).then((based64Value) => {
+    document.getElementById("sha256-base64").innerHTML = based64Value;
+  }
+}
+
+async function sha256_hex(message) {
+  const msgUint8 = new TextEncoder().encode(message);
+  const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hashHex;
+}
+
+async function sha256_base64(message) {
+  const msgUint8 = new TextEncoder().encode(message);
+  const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgUint8);
+  const base64Hash = btoa(String.fromCharCode(...new Uint8Array(hashBuffer)));
+  return base64Hash;
+}
 </script>
 </html>
-
-
