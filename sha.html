@@ -1,24 +1,6 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<h2>SHA encoding</h2>
-
-<form action="javascript:populateSHA256(email.value)">
-  <label for="email">Email:</label>
-  <input type="text" id="email" name="email">
-
- <input type="submit" value="Submit">
-</form>
-<br>
-<label>Email Hash 1: </label>
-<p id="sha256-hex"></p>
-
-
-<label>Email Hash 2: </label>
-<p id="sha256-base64"></p>
-</body>
-<script>
+<script type="text/javascript">
 function populateSHA256(email) {
   var email = document.getElementById('email').value;
   var emailFirst = email.split("@")[0].replaceAll(".", "").toLowerCase();
@@ -55,4 +37,29 @@ async function sha256_base64(message) {
 }
 
 </script>
+
+<body>
+
+<h2>SHA encoding</h2>
+
+<form id="form">
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email">
+
+ <button type="submit">Submit</button>
+</form>
+<br>
+<label>Email Hash 1: </label>
+<p id="sha256-hex"></p>
+
+
+<label>Email Hash 2: </label>
+<p id="sha256-base64"></p>
+</body>
+<script>
+const form = document.getElementById("form");
+form.addEventListener("submit", populateSHA256);
+</script>
 </html>
+
+
