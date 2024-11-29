@@ -32,11 +32,11 @@ function populateSHA256(event) {
   
   sha256_hex(normalizedEmail).then((hexValue) => {
     document.getElementById("sha256-hex").innerHTML = hexValue;
-  }
+  });
 
 sha256_base64(normalizedEmail).then((based64Value) => {
     document.getElementById("sha256-base64").innerHTML = based64Value;
-  }
+  });
 }
 
 async function sha256_hex(message) {
