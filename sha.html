@@ -4,7 +4,7 @@
 
 <h2>SHA encoding</h2>
 
-<form onsubmit="populateSHA256()">
+<form action="javascript:populateSHA256(email.value)">
   <label for="email">Email:</label>
   <input type="text" id="email" name="email">
 
@@ -19,10 +19,10 @@
 <p id="sha256-base64"></p>
 </body>
 <script>
-function populateSHA256() {
+function populateSHA256(email) {
   var email = document.getElementById('email').value;
-  var emailFirst = a.split("@")[0].replaceAll(".", "").toLowerCase();
-  var emailSecond = a.split("@")[1].toLowerCase();
+  var emailFirst = email.split("@")[0].replaceAll(".", "").toLowerCase();
+  var emailSecond = email.split("@")[1].toLowerCase();
   var normalizedEmail = emailFirst + '@' + emailSecond;
   
   sha256_hex(normalizedEmail).then((hexValue) => {
@@ -32,6 +32,8 @@ function populateSHA256() {
 sha256_base64(normalizedEmail).then((based64Value) => {
     document.getElementById("sha256-base64").innerHTML = based64Value;
   }
+  
+  return false;
 
 }
 
@@ -52,10 +54,5 @@ async function sha256_base64(message) {
   return base64Hash;
 }
 
-
-
-
 </script>
 </html>
-
-
