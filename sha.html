@@ -54,7 +54,7 @@ async function sha256_base64(message) {
   const msgUint8 = new TextEncoder().encode(message);
   const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgUint8);
   const base64Hash = btoa(String.fromCharCode(...new Uint8Array(hashBuffer)));
-  return base64Hash;
+  return base64Hash.replace("=", "");
 }
 </script>
 </html>
